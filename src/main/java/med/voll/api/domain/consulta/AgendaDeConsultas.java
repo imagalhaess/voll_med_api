@@ -48,14 +48,15 @@ public class AgendaDeConsultas {
     return medicoRepository.escolherMedicoAleatorioDisponivel(dados.especialidade().name(), dados.data());
     }
 
-    public void cancelar (DadosCancelamentoConsulta dadosCancelamentoConsulta,
-                          DadosDetalhamentoConsulta dadosDetalhamentoConsulta){
-        Duration diferenca = Duration.between(dadosCancelamentoConsulta.data(), LocalDateTime.now());
+    public void cancelar (DadosCancelamentoConsulta dados){
+
+        var consulta = consultaRepository.getReferenceById(dados.idConsulta());
+        var data = consulta.getData();
+        Duration diferenca = Duration.between(data, LocalDateTime.now());
         if (diferenca.toHours() > 24){
             throw new ValidacaoException("Uma consulta somente poderá ser cancelada com antecedência mínima de 24 " +
                                                  "horas.");
         }
-        var cancelamentoConsulta = consultaRepository.getReferenceById(dadosDetalhamentoConsulta.idConsulta());
-        consultaRepository.delete(cancelamentoConsulta);
+        consultaRepository.delete(consulta);
     }
 }
