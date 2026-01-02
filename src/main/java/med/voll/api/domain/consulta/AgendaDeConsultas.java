@@ -23,6 +23,7 @@ public class AgendaDeConsultas {
     @Autowired
     private PacienteRepository pacienteRepository;
 
+
     public void agendar (DadosAgendamentoConsulta dados){
     if (!pacienteRepository.existsById(dados.idPaciente())){
         throw new ValidacaoException("ID do paciente não existe no sistema!");
@@ -33,7 +34,7 @@ public class AgendaDeConsultas {
 
         var medico = escolherMedico(dados);
         var paciente = pacienteRepository.getReferenceById(dados.idPaciente());
-        var consulta = new Consulta(null, medico, paciente, dados.data());
+        var consulta = new Consulta(null, medico, paciente, dados.data(), true);
         consultaRepository.save(consulta);
     }
 
@@ -48,15 +49,15 @@ public class AgendaDeConsultas {
     return medicoRepository.escolherMedicoAleatorioDisponivel(dados.especialidade().name(), dados.data());
     }
 
-    public void cancelar (DadosCancelamentoConsulta dados){
+    public void cancelarConsulta (DadosCancelamentoConsulta dados){
 
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
         var data = consulta.getData();
-        Duration diferenca = Duration.between(data, LocalDateTime.now());
+        Duration diferenca = Duration.between(LocalDateTime.now(), data);
         if (diferenca.toHours() > 24){
             throw new ValidacaoException("Uma consulta somente poderá ser cancelada com antecedência mínima de 24 " +
                                                  "horas.");
         }
-        consultaRepository.delete(consulta);
+        consulta.cancelar();
     }
-}
+    }
