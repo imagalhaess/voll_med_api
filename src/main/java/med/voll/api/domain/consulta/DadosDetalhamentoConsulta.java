@@ -5,7 +5,15 @@ import java.time.LocalDateTime;
 public record DadosDetalhamentoConsulta(
 
         Long idConsulta,
-        Long idMedico,
-        Long idPaciente,
+        String medico,
+        String paciente,
         LocalDateTime data) {
+
+    public DadosDetalhamentoConsulta(Consulta consulta) {
+        this(consulta.getId(),
+             consulta.getMedico().getNome(),
+             consulta.getPaciente().getNome(),
+             consulta.getData());
+    }
+
 }

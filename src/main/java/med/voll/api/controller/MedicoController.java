@@ -51,7 +51,6 @@ public class MedicoController {
         var medico = repository.getReferenceById(id);
         medico.excluir();
         return ResponseEntity.noContent().build();
-
     }
 
     @GetMapping("/{id}")

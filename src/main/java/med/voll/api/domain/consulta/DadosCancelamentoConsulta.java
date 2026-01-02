@@ -2,6 +2,5 @@ package med.voll.api.domain.consulta;
 import jakarta.validation.constraints.NotNull;
 
 
-public record DadosCancelamentoConsulta(@NotNull MotivoCancelamento motivo,
-                                        @NotNull Long idConsulta) {
+public record DadosCancelamentoConsulta(@NotNull MotivoCancelamento motivo) {
 }
