@@ -1,6 +1,5 @@
 package med.voll.api.domain.consulta;
 
-import jakarta.validation.constraints.NotBlank;
 import med.voll.api.domain.medico.Medico;
 import med.voll.api.domain.medico.MedicoRepository;
 import med.voll.api.domain.paciente.PacienteRepository;
@@ -54,7 +53,7 @@ public class AgendaDeConsultas {
         var consulta = consultaRepository.getReferenceById(dados.idConsulta());
         var data = consulta.getData();
         Duration diferenca = Duration.between(LocalDateTime.now(), data);
-        if (diferenca.toHours() > 24){
+        if (diferenca.toHours() < 24){
             throw new ValidacaoException("Uma consulta somente poderá ser cancelada com antecedência mínima de 24 " +
                                                  "horas.");
         }
