@@ -41,6 +41,11 @@ public class TratadorDeErros {
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Falha na autenticação");
     }
 
+    @ExceptionHandler(ValidacaoException.class)
+    public ResponseEntity tratarErroRegraDeNegocio(ValidacaoException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity tratarErroAcessoNegado() {
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Acesso negado");
