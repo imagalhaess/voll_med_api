@@ -17,10 +17,16 @@
         <java.version>17</java.version>
     </properties>
     <dependencies>
-        <!-- Spring WebMVC -->
+        <!-- Spring WebMVC (inclui tudo para web) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-webmvc</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webmvc-test</artifactId>
+            <scope>test</scope>
         </dependency>
 
         <!-- Spring Data JPA -->
@@ -101,25 +107,19 @@
             <version>2.7.0</version>
         </dependency>
 
-        <!-- Test -->
+        <!-- Test - Inclui tudo para testes (JUnit, Mockito, AssertJ, etc) -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-test-autoconfigure</artifactId>
-            <scope>test</scope>
-        </dependency>
-
+        <!-- Test JPA - Para testes de Repository -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa-test</artifactId>
             <scope>test</scope>
         </dependency>
-
 
     </dependencies>
 
